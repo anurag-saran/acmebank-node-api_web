@@ -35,8 +35,8 @@ app.get('/test', function(req, res) {
 app.get('/customer/:id', function(req, res) {
     console.log("*****// GET /customer/:id.");
     var custID = req.params.id;
+    console.log("*****// GET /customer/:id.custID:"+custID);
    // var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-    console.log("#### connected"+JSON.stringify(connected))
     
 //	connected.then(function (client) {
 //        client.get(custID).then(
