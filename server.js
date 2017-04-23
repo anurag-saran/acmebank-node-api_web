@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var jdgHost = process.env.DATAGRID_HOTROD_SERVICE_HOST || "127.0.0.1";
 var jdgPort = process.env.DATAGRID_HOTROD_SERVICE_PORT || 11222;
 
-app.use(bodyParser.json);
+//app.use(bodyParser.json);
 
 //app.all("/api/*", function(req, res, next) {
 //  res.header("Access-Control-Allow-Origin", "*");
@@ -36,23 +36,26 @@ app.get('/customer/:id', function(req, res) {
     console.log("*****// GET /customer/:id.");
     var custID = req.params.id;
     console.log("*****// GET /customer/:id.custID:"+custID);
-   // var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-    
-//	connected.then(function (client) {
-//        client.get(custID).then(
-//            function(value) {
-//                if(value == undefined)  {
-//                    console.log("*****Record Not Found.");
-//                    client.put(custID, "abc");
-//                    //res.json(util.format('Customer Not Found %s!', custID));
-//                    res.status(404).send();
-//                } else {
-//                    console.log("*****Record Found.");
-//                    res.json(value);
-//                    
-//                }
-//            });
-//        });
+    var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+    //connected.log("connected:"+connected);
+    //connected.log("connected:"+JSON.stringify(connected));
+	connected.then(function (client) {
+        connected.log("*** Connected:");
+        client.get(custID).then(
+            function(value) {
+                if(value == undefined)  {
+                    console.log("*****Record Not Found.");
+                    client.put(custID, "abc");
+                    //res.json(util.format('Customer Not Found %s!', custID));
+                    res.status(404).send();
+                } else {
+                    console.log("*****Record Found.");
+                    res.json(value);
+                    
+                }
+            });
+        });
+    res.send('Webpage API Root test');
 });
 
 app.use(express.static(__dirname + '/public'));
