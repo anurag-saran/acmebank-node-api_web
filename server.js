@@ -36,9 +36,10 @@ app.get('/customer/:id', function(req, res) {
     console.log("*****// GET /customer/:id.");
     var custID = req.params.id;
     console.log("*****// GET /customer/:id.custID:"+custID);
+    console.log("*** About To Connected:");
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-    //connected.log("connected:"+connected);
-    //connected.log("connected:"+JSON.stringify(connected));
+    console.log("***  Connected:");
+
     var resFlag=0;
     var cust = {
         
@@ -51,9 +52,9 @@ app.get('/customer/:id', function(req, res) {
         };
     
     //requestDataUpdated["commands"][1]["insert"]["object"]["com.redhat.gpte.policyquote.model.Policy"]["vehicleYear"] = vehicleYear;
-    
+     console.log("***  Object Set:");
 	connected.then(function (client) {
-        connected.log("*** Connected:");
+        console.log("*** after connect:");
         client.put(custID, cust);
         client.get(custID).then(
             function(value) {
@@ -71,6 +72,7 @@ app.get('/customer/:id', function(req, res) {
                 }
             });
         });
+     console.log("*** Before Flag Last:");
     if(resFlag===0) {
     res.send('Webpage API Root test');}
 });
