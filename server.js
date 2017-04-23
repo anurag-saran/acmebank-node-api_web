@@ -39,7 +39,7 @@ app.get('/customer/:id', function(req, res) {
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
     //connected.log("connected:"+connected);
     //connected.log("connected:"+JSON.stringify(connected));
-    
+    var resFlag=0;
     var cust = {
         
 	"firstName": "Anurag",
@@ -61,34 +61,37 @@ app.get('/customer/:id', function(req, res) {
                     console.log("*****Record Not Found.");
                     client.put(custID, "abc");
                     //res.json(util.format('Customer Not Found %s!', custID));
+                    resFlag=1;
                     res.status(404).send();
                 } else {
                     console.log("*****Record Found.");
+                    resFlag=1;
                     res.json(value);
                     
                 }
             });
         });
-    //res.send('Webpage API Root test');
+    if(resFlag===0) {
+    res.send('Webpage API Root test');}
 });
 
 
  // POST /customer
-app.post('/customer', function(req, res) {
-    var body = reg.body;
-    var custID = body.custID;
-    console.log("****body:"+body);
-    var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-	connected.then(function (client) {
-        client.get(custID).then(
-            function(value) {
-                if(value == undefined)  {
-                    client.put(custID, body)
-                    res.json(util.format('Customer Not Found %s! but inserted into cache now', custID));
-                }
-            })
-        })
-})
+//app.post('/customer', function(req, res) {
+//    var body = reg.body;
+//    var custID = body.custID;
+//    console.log("****body:"+body);
+//    var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+//	connected.then(function (client) {
+//        client.get(custID).then(
+//            function(value) {
+//                if(value == undefined)  {
+//                    client.put(custID, body)
+//                    res.json(util.format('Customer Not Found %s! but inserted into cache now', custID));
+//                }
+//            })
+//        })
+//})
 
 
 app.use(express.static(__dirname + '/public'));
