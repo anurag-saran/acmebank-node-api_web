@@ -31,7 +31,7 @@ app.get('/test', function(req, res) {
 
 
 
- GET /customer/:id
+// GET /customer/:id
 app.get('/customer/:id', function(req, res) {
     console.log("*****// GET /customer/:id.");
     var custID = req.params.id;
