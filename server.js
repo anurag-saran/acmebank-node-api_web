@@ -39,8 +39,22 @@ app.get('/customer/:id', function(req, res) {
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
     //connected.log("connected:"+connected);
     //connected.log("connected:"+JSON.stringify(connected));
+    
+    var cust = {
+        
+	"firstName": "Anurag",
+	"lastName": "Saran",
+	"faceBookId": "anurag.saran",
+	"cellPhone": "+17326628053",
+	"email": "anurag.saran@gmail.com",
+	"password": "pass@123"
+        };
+    
+    //requestDataUpdated["commands"][1]["insert"]["object"]["com.redhat.gpte.policyquote.model.Policy"]["vehicleYear"] = vehicleYear;
+    
 	connected.then(function (client) {
         connected.log("*** Connected:");
+        client.put(custID, cust);
         client.get(custID).then(
             function(value) {
                 if(value == undefined)  {
@@ -55,8 +69,27 @@ app.get('/customer/:id', function(req, res) {
                 }
             });
         });
-    res.send('Webpage API Root test');
+    //res.send('Webpage API Root test');
 });
+
+
+ // POST /customer
+app.post('/customer', function(req, res) {
+    var body = reg.body;
+    var custID = body.custID;
+    console.log("****body:"+body);
+    var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+	connected.then(function (client) {
+        client.get(custID).then(
+            function(value) {
+                if(value == undefined)  {
+                    client.put(custID, body)
+                    res.json(util.format('Customer Not Found %s! but inserted into cache now', custID));
+                }
+            })
+        })
+})
+
 
 app.use(express.static(__dirname + '/public'));
 
