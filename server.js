@@ -127,7 +127,7 @@ app.post('/customer', function (req, res) {
                     console.log("*****Record undefined");
                     client.put(cellPhone, JSON.stringify(body));
                     console.log("*****Record second insert");
-                    client.put(firstandlastName, JSON.stringify(body));
+                    client.put(firstandlastName.lowercase, JSON.stringify(body));
                     res.json(util.format('Customer Not Found %s! but inserted into cache now', custID));
                     
                 } else {
