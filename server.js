@@ -41,16 +41,16 @@ app.get('/customer/:id', function(req, res) {
     console.log("***  Connected:");
 
     var resFlag=0;
-//    var cust = {
-//        
-//	"firstName": "Anurag",
-//	"lastName": "Saran",
-//	"faceBookId": "anurag.saran",
-//	"cellPhone": "+17326628053",
-//	"email": "anurag.saran@gmail.com",
-//	"password": "pass@123"
-//        };
-    var cust = "abc";
+    var cust = {
+        
+	"firstName": "Anurag",
+	"lastName": "Saran",
+	"faceBookId": "anurag.saran",
+	"cellPhone": "+17326628053",
+	"email": "anurag.saran@gmail.com",
+	"password": "pass@123"
+        };
+    //var cust = "abc";
     //requestDataUpdated["commands"][1]["insert"]["object"]["com.redhat.gpte.policyquote.model.Policy"]["vehicleYear"] = vehicleYear;
      console.log("***  Object Set:");
 	connected.then(function (client) {
@@ -61,7 +61,7 @@ app.get('/customer/:id', function(req, res) {
                 console.log("*****Record IF.value:"+JSON.stringify(value));
                 if(value == undefined)  {
                     console.log("*****Record Not Found.");
-                    client.put(custID, cust);
+                    client.put(custID, JSON.stringify(cust));
                      console.log("*****Record Not Found After PUT.");
                     //client.put(custID, "abc");
                     //res.json(util.format('Customer Not Found %s!', custID));
@@ -69,6 +69,7 @@ app.get('/customer/:id', function(req, res) {
                     res.status(404).send();
                 } else {
                     console.log("*****Record Found.");
+                    console.log("***** value:"+value);
                     resFlag=1;
                     //res.json(util.format('Welcome back %s! Your first visit here was on %s', name, value))
                     res.json(value);
