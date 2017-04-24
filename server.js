@@ -14,7 +14,7 @@ var jdgPort = process.env.DATAGRID_HOTROD_SERVICE_PORT || 11222;
 
 //app.use(bodyParser.json);
 //app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //app.all("/api/*", function(req, res, next) {
@@ -91,14 +91,16 @@ app.get('/customer/:id', function(req, res) {
 
 app.post('/customer', function (req, res) {
     console.log("*** Request:"+req.body);
+    console.log("*** Request:"+req);
+    console.log(JSON.stringify(req.body));
 	console.log(JSON.stringify(req.body, null, 5));
 	var body = _.pick(req.body, 'firstName', 'lastName', 'faceBookId', 'cellPhone', 'email','age','faceBookIdInternal');
     var cellPhone = body.cellPhone;
     var firstandlastName = body.firstName + body.lastName;
-    
-    console.log("*** ssn:"+ Math.floor(Math.random() * 900000000) + 100000000);
-    console.log("*** tickets:"+  Math.floor(Math.random() * 10) + 1);
-    console.log("*** accidents:"+  Math.floor(Math.random() * 10) + 1);
+    randomcode = 
+    console.log("*** ssn:"+ Math.floor(100000000 + Math.random() * 900000000));
+    console.log("*** tickets:"+  Math.floor(1 + Math.random() * 9));
+    console.log("*** accidents:"+  Math.floor(1 + Math.random() * 9));
    
 	console.log(JSON.stringify(body, null, 4));
     
