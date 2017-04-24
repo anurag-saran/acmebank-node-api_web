@@ -46,15 +46,15 @@ app.get('/customer/:id', function(req, res) {
     console.log("***  Connected:");
 
     var resFlag=0;
-    var cust = {
-        
-	"firstName": "Anurag",
-	"lastName": "Saran",
-	"faceBookId": "anurag.saran",
-	"cellPhone": "+17326628053",
-	"email": "anurag.saran@gmail.com",
-	"password": "pass@123"
-        };
+//    var cust = {
+//        
+//	"firstName": "Anurag",
+//	"lastName": "Saran",
+//	"faceBookId": "anurag.saran",
+//	"cellPhone": "+17326628053",
+//	"email": "anurag.saran@gmail.com",
+//	"password": "pass@123"
+//        };
     //var cust = "abc";
     //requestDataUpdated["commands"][1]["insert"]["object"]["com.redhat.gpte.policyquote.model.Policy"]["vehicleYear"] = vehicleYear;
      console.log("***  Object Set:");
@@ -66,7 +66,7 @@ app.get('/customer/:id', function(req, res) {
                 console.log("*****Record IF.value:"+JSON.stringify(value));
                 if(value == undefined)  {
                     console.log("*****Record Not Found.");
-                    client.put(custID, JSON.stringify(cust));
+                    //client.put(custID, JSON.stringify(cust));
                      console.log("*****Record Not Found After PUT.");
                     //client.put(custID, "abc");
                     //res.json(util.format('Customer Not Found %s!', custID));
@@ -101,10 +101,15 @@ app.post('/customer', function (req, res) {
     console.log("*** ssn:"+ Math.floor(100000000 + Math.random() * 900000000));
     console.log("*** tickets:"+  Math.floor(1 + Math.random() * 9));
     console.log("*** accidents:"+  Math.floor(1 + Math.random() * 9));
-   
+    
+    body.ssn = Math.floor(100000000 + Math.random() * 900000000);
+    body.tickets = Math.floor(1 + Math.random() * 9);
+    body.accidents = Math.floor(1 + Math.random() * 9);
+    
 	console.log(JSON.stringify(body, null, 4));
     
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+    
 	connected.then(function (client) {
         client.get(cellPhone).then(
             function(value) {
@@ -114,7 +119,7 @@ app.post('/customer', function (req, res) {
                     res.json(util.format('Customer Not Found %s! but inserted into cache now', custID));
                     
                 } else {
-                    res.json(util.format('Customer Exists', custID));
+                    res.json(util.format('Customer Exists', cellPhone));
                 }
             })
         })
