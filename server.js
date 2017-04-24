@@ -96,6 +96,10 @@ app.post('/customer', function (req, res) {
     var cellPhone = body.cellPhone;
     var firstandlastName = body.firstName + body.lastName;
     
+    console.log("*** ssn:"+ Math.floor(Math.random() * 900000000) + 100000000);
+    console.log("*** tickets:"+  Math.floor(Math.random() * 10) + 1);
+    console.log("*** accidents:"+  Math.floor(Math.random() * 10) + 1);
+   
 	console.log(JSON.stringify(body, null, 4));
     
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
