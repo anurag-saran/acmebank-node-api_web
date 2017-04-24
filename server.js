@@ -55,19 +55,22 @@ app.get('/customer/:id', function(req, res) {
      console.log("***  Object Set:");
 	connected.then(function (client) {
         console.log("*** after connect:");
-        client.put(custID, cust);
+        
         client.get(custID).then(
             function(value) {
                 console.log("*****Record IF.value"+JSON.stringify(value));
                 if(value == undefined)  {
                     console.log("*****Record Not Found.");
-                    client.put(custID, "abc");
+                    client.put(custID, cust);
+                     console.log("*****Record Not Found After PUT.");
+                    //client.put(custID, "abc");
                     //res.json(util.format('Customer Not Found %s!', custID));
                     resFlag=1;
                     res.status(404).send();
                 } else {
                     console.log("*****Record Found.");
                     resFlag=1;
+                    //res.json(util.format('Welcome back %s! Your first visit here was on %s', name, value))
                     res.json(value);
                     
                 }
@@ -75,8 +78,8 @@ app.get('/customer/:id', function(req, res) {
             });
         });
      console.log("*** Before Flag Last:");
-    if(resFlag===0) {
-    res.send('Webpage API Root test');}
+//    if(resFlag===0) {
+//    res.send('Webpage API Root test');}
 });
 
 
