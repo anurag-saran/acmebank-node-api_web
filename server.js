@@ -58,6 +58,7 @@ app.get('/customer/:id', function(req, res) {
         client.put(custID, cust);
         client.get(custID).then(
             function(value) {
+                console.log("*****Record IF.value"+JSON.stringify(value));
                 if(value == undefined)  {
                     console.log("*****Record Not Found.");
                     client.put(custID, "abc");
@@ -70,6 +71,7 @@ app.get('/customer/:id', function(req, res) {
                     res.json(value);
                     
                 }
+                console.log("*****Record out of if else");
             });
         });
      console.log("*** Before Flag Last:");
