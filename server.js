@@ -106,12 +106,18 @@ app.post('/customer', function (req, res) {
     body.tickets = Math.floor(1 + Math.random() * 9);
     body.accidents = Math.floor(1 + Math.random() * 9);
     
+    body.timeReport = Math.floor(Math.random() * 2);
+    body.salaryCredited = Math.floor(Math.random() * 2);
+    
+    body.employeeNo = Math.floor(1000 + Math.random() * 9000);
+    
 	console.log(JSON.stringify(body, null, 4));
     
     console.log("*****Record before connected");
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
     console.log("*****Record connected");
     console.log("*****Record connected cellPhone:"+cellPhone);
+    
 	connected.then(function (client) {
         console.log("*****Record then");
         client.get(cellPhone).then(
