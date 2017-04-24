@@ -108,17 +108,24 @@ app.post('/customer', function (req, res) {
     
 	console.log(JSON.stringify(body, null, 4));
     
+    console.log("*****Record before connected");
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-    
+    console.log("*****Record connected");
+    console.log("*****Record connected cellPhone:"+cellPhone);
 	connected.then(function (client) {
+        console.log("*****Record then");
         client.get(cellPhone).then(
             function(value) {
+                console.log("*****Record get");
                 if(value == undefined)  {
+                    console.log("*****Record undefined");
                     client.put(cellPhone, JSON.stringify(body));
+                    console.log("*****Record second insert");
                     client.put(firstandlastName, JSON.stringify(body));
                     res.json(util.format('Customer Not Found %s! but inserted into cache now', custID));
                     
                 } else {
+                     console.log("*****Record exists");
                     res.json(util.format('Customer Exists', cellPhone));
                 }
             })
