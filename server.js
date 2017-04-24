@@ -41,16 +41,16 @@ app.get('/customer/:id', function(req, res) {
     console.log("***  Connected:");
 
     var resFlag=0;
-    var cust = {
-        
-	"firstName": "Anurag",
-	"lastName": "Saran",
-	"faceBookId": "anurag.saran",
-	"cellPhone": "+17326628053",
-	"email": "anurag.saran@gmail.com",
-	"password": "pass@123"
-        };
-    
+//    var cust = {
+//        
+//	"firstName": "Anurag",
+//	"lastName": "Saran",
+//	"faceBookId": "anurag.saran",
+//	"cellPhone": "+17326628053",
+//	"email": "anurag.saran@gmail.com",
+//	"password": "pass@123"
+//        };
+    var cust = "abc";
     //requestDataUpdated["commands"][1]["insert"]["object"]["com.redhat.gpte.policyquote.model.Policy"]["vehicleYear"] = vehicleYear;
      console.log("***  Object Set:");
 	connected.then(function (client) {
@@ -58,7 +58,7 @@ app.get('/customer/:id', function(req, res) {
         
         client.get(custID).then(
             function(value) {
-                console.log("*****Record IF.value"+JSON.stringify(value));
+                console.log("*****Record IF.value:"+JSON.stringify(value));
                 if(value == undefined)  {
                     console.log("*****Record Not Found.");
                     client.put(custID, cust);
