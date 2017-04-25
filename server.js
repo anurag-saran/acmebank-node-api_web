@@ -38,101 +38,47 @@ app.get('/test', function(req, res) {
 
 // GET /customer/:id
 app.get('/customer/:id', function(req, res) {
-    console.log("*****// GET /customer/:id.");
     var custID = req.params.id;
-    console.log("*****// GET /customer/:id.custID:"+custID);
-    console.log("*** About To Connected:");
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-    console.log("***  Connected:");
     custID = custID.toLowerCase();
     var resFlag=0;
-//    var cust = {
-//        
-//	"firstName": "Anurag",
-//	"lastName": "Saran",
-//	"faceBookId": "anurag.saran",
-//	"cellPhone": "+17326628053",
-//	"email": "anurag.saran@gmail.com",
-//	"password": "pass@123"
-//        };
-    //var cust = "abc";
-    //requestDataUpdated["commands"][1]["insert"]["object"]["com.redhat.gpte.policyquote.model.Policy"]["vehicleYear"] = vehicleYear;
-     console.log("***  Object Set:");
-	connected.then(function (client) {
-        console.log("*** after connect:");
-        
+    connected.then(function (client) {
         client.get(custID).then(
             function(value) {
-                console.log("*****Record IF.value:"+JSON.stringify(value));
                 if(value == undefined)  {
-                    console.log("*****Record Not Found.");
-                    //client.put(custID, JSON.stringify(cust));
-                     console.log("*****Record Not Found After PUT.");
-                    //client.put(custID, "abc");
-                    //res.json(util.format('Customer Not Found %s!', custID));
-                    resFlag=1;
                     res.status(404).send();
                 } else {
-                    console.log("*****Record Found.");
-                    console.log("***** value:"+value);
-                    resFlag=1;
-                    //res.json(util.format('Welcome back %s! Your first visit here was on %s', name, value))
                     res.json(value);
-                    
                 }
-                console.log("*****Record out of if else");
             });
         });
-     console.log("*** Before Flag Last:");
-//    if(resFlag===0) {
-//    res.send('Webpage API Root test');}
+     
 });
 
 
 app.post('/customer', function (req, res) {
-    console.log("*** Request:"+req.body);
-    console.log("*** Request:"+req);
-    console.log(JSON.stringify(req.body));
-	console.log(JSON.stringify(req.body, null, 5));
 	var body = _.pick(req.body, 'firstName', 'lastName', 'faceBookId', 'cellPhone', 'email','age','faceBookIdInternal');
     var cellPhone = body.cellPhone;
     var firstandlastName = body.firstName + body.lastName;
      
-    console.log("*** ssn:"+ Math.floor(100000000 + Math.random() * 900000000));
-    console.log("*** tickets:"+  Math.floor(1 + Math.random() * 9));
-    console.log("*** accidents:"+  Math.floor(1 + Math.random() * 9));
     
     body.ssn = Math.floor(100000000 + Math.random() * 900000000);
     body.tickets = Math.floor(1 + Math.random() * 9);
     body.accidents = Math.floor(1 + Math.random() * 9);
-    
     body.timeReport = Math.floor(Math.random() * 2);
     body.salaryCredited = Math.floor(Math.random() * 2);
-    
     body.employeeNo = Math.floor(1000 + Math.random() * 9000);
-    
-	console.log(JSON.stringify(body, null, 4));
-    
-    console.log("*****Record before connected");
+
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
-    console.log("*****Record connected");
-    console.log("*****Record connected cellPhone:"+cellPhone);
-    
 	connected.then(function (client) {
-        console.log("*****Record then");
         client.get(cellPhone).then(
             function(value) {
-                console.log("*****Record get");
                 if(value == undefined)  {
-                    console.log("*****Record undefined");
                     client.put(cellPhone, JSON.stringify(body));
-                    console.log("*****Record second insert");
                     client.put(firstandlastName.toLowerCase(), JSON.stringify(body));
-                    
                     res.json(util.format('Customer Not Found %s! but inserted into cache now with keys:', cellPhone+":"+firstandlastName.toLowerCase()));
                     
                 } else {
-                     console.log("*****Record exists");
                     res.json(util.format('Customer Exists', cellPhone));
                 }
             })
