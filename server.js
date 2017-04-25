@@ -77,7 +77,7 @@ app.post('/customer', function (req, res) {
                     client.put(firstandlastName.toLowerCase(), JSON.stringify(body));
                     client.put(faceBookIdInternal.toLowerCase(), JSON.stringify(body));
                     client.put(facebookSenderID.toLowerCase(), JSON.stringify(body));
-                    res.json(util.format('Customer Not Found %s! but inserted into cache now with keys:cellPhone', cellPhone+faceBookIdInternal+facebookSenderID);
+                    res.json(util.format('Customer Not Found %s! but inserted into cache now with keys:cellPhone', cellPhone+faceBookIdInternal+facebookSenderID));
                     
                 } else {
                     res.json(util.format('Customer Exists', cellPhone));
