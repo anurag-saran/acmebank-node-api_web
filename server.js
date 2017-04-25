@@ -59,8 +59,8 @@ app.post('/customer', function (req, res) {
     var cellPhone = body.cellPhone;
     var firstandlastName = body.firstName + body.lastName;
     var faceBookIdInternal =   body.faceBookIdInternal;
-    var facebookSenderID = body.facebookSenderIDl
-    
+    var facebookSenderID = body.facebookSenderID;
+    console.log("facebookSenderID:"+facebookSenderID);
     body.ssn = Math.floor(100000000 + Math.random() * 900000000);
     body.tickets = Math.floor(1 + Math.random() * 9);
     body.accidents = Math.floor(1 + Math.random() * 9);
