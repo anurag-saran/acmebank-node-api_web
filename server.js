@@ -33,9 +33,6 @@ app.get('/test', function(req, res) {
 	res.send('Webpage API Root test');
 });
 
-
-
-
 // GET /customer/:id
 app.get('/customer/:id', function(req, res) {
     var custID = req.params.id;
