@@ -57,7 +57,7 @@ app.post('/customer', function (req, res) {
 	var body = _.pick(req.body, 'firstName', 'lastName', 'faceBookId', 'cellPhone', 'email','age','faceBookIdInternal');
     var cellPhone = body.cellPhone;
     var firstandlastName = body.firstName + body.lastName;
-     
+    var faceBookIdInternal =   body.faceBookIdInternal;
     
     body.ssn = Math.floor(100000000 + Math.random() * 900000000);
     body.tickets = Math.floor(1 + Math.random() * 9);
@@ -73,6 +73,7 @@ app.post('/customer', function (req, res) {
                 if(value == undefined)  {
                     client.put(cellPhone, JSON.stringify(body));
                     client.put(firstandlastName.toLowerCase(), JSON.stringify(body));
+                    client.put(faceBookIdInternal.toLowerCase(), JSON.stringify(body));
                     res.json(util.format('Customer Not Found %s! but inserted into cache now with keys:', cellPhone+":"+firstandlastName.toLowerCase()));
                     
                 } else {
