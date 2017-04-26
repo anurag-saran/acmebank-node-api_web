@@ -55,7 +55,7 @@ app.get('/customer/:id', function(req, res) {
 
 app.post('/customer', function (req, res) {
 	var body = _.pick(req.body, 'firstName', 'lastName', 'faceBookId', 'cellPhone', 'email','age','faceBookIdInternal','facebookSenderID');
-    console.log("req:"+JSON.stringify(req));
+    //console.log("req:"+JSON.stringify(req));
     console.log("body:"+JSON.stringify(body));
     
     var cellPhone = body.cellPhone;
