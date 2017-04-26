@@ -55,6 +55,8 @@ app.get('/customer/:id', function(req, res) {
 
 app.post('/customer', function (req, res) {
 	var body = _.pick(req.body, 'firstName', 'lastName', 'faceBookId', 'cellPhone', 'email','age','faceBookIdInternal','facebookSenderID');
+    console.log("req:"+JSON.stringify(req));
+    console.log("body:"+JSON.stringify(body));
     
     var cellPhone = body.cellPhone;
     var firstandlastName = body.firstName + body.lastName;
@@ -69,17 +71,21 @@ app.post('/customer', function (req, res) {
     body.employeeNo = Math.floor(1000 + Math.random() * 9000);
     
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
+    console.log("connected:");
 	connected.then(function (client) {
         client.get(cellPhone).then(
             function(value) {
                 if(value == undefined)  {
+                    console.log("Not Found:");
                     client.put(cellPhone, JSON.stringify(body));
                     client.put(firstandlastName.toLowerCase(), JSON.stringify(body));
+                    console.log("Inserted:"+cellPhone);
                     //client.put(faceBookIdInternal.toLowerCase(), JSON.stringify(body));
                     //client.put(facebookSenderID.toLowerCase(), JSON.stringify(body));
                     res.json(util.format('Customer Not Found %s! but inserted into cache now with keys:cellPhone', cellPhone+faceBookIdInternal+facebookSenderID));
                     
                 } else {
+                    console.log("Exists:"+cellPhone);
                     res.json(util.format('Customer Exists', cellPhone));
                 }
             })
