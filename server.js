@@ -75,8 +75,8 @@ app.post('/customer', function (req, res) {
                 if(value == undefined)  {
                     client.put(cellPhone, JSON.stringify(body));
                     client.put(firstandlastName.toLowerCase(), JSON.stringify(body));
-                    client.put(faceBookIdInternal.toLowerCase(), JSON.stringify(body));
-                    client.put(facebookSenderID.toLowerCase(), JSON.stringify(body));
+                    //client.put(faceBookIdInternal.toLowerCase(), JSON.stringify(body));
+                    //client.put(facebookSenderID.toLowerCase(), JSON.stringify(body));
                     res.json(util.format('Customer Not Found %s! but inserted into cache now with keys:cellPhone', cellPhone+faceBookIdInternal+facebookSenderID));
                     
                 } else {
