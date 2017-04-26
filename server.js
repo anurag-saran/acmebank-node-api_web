@@ -14,7 +14,7 @@ var jdgPort = process.env.DATAGRID_HOTROD_SERVICE_PORT || 11222;
 
 //app.use(bodyParser.json);
 //app.use(bodyParser.urlencoded({extended: false}));
-//app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //app.all("/api/*", function(req, res, next) {
