@@ -70,6 +70,9 @@ app.post('/customer', function (req, res) {
     body.salaryCredited = Math.floor(Math.random() * 2);
     body.employeeNo = Math.floor(1000 + Math.random() * 9000);
     
+    console.log("cellPhone:"+cellPhone);
+    console.log("firstandlastName:"+firstandlastName);
+    
     var connected = infinispan.client({port: jdgPort, host: jdgHost}, {version: '2.2'});
     console.log("connected:");
 	connected.then(function (client) {
