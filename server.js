@@ -2,6 +2,7 @@ var express = require('express');
 var infinispan = require('infinispan');
 var _ = require('underscore');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -16,6 +17,8 @@ var jdgPort = process.env.DATAGRID_HOTROD_SERVICE_PORT || 11222;
 //app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(cors());
 
 //app.all("/api/*", function(req, res, next) {
 //  res.header("Access-Control-Allow-Origin", "*");
